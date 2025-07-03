@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+# set -euo pipefail
 
 echo "📦 Starting build process..."
 
@@ -40,27 +40,37 @@ for dir in */ ; do
 
         # Pfad zum Skript im Ordner
         script_path="$folder_path/build-release.sh"
-
         # Prüfen, ob das Skript existiert und ausführbar ist
-        if [ -x "$script_path" ]; then
-            echo "→ Wechsle in $folder_name und führe run.sh aus"
-            cd "$folder_path" || continue
-            chmod a+x build-release.sh
-            ./build-release.sh
-            cd "$start_dir" || exit 1
-        else
-            echo "⚠️  Kein ausführbares Skript ($script_path) gefunden"
-        fi
+        # if [ -x "$script_path" ]; then
+        #    echo "→ Wechsle in $folder_name und führe run.sh aus"
+        #    cd "$folder_path" || continue
+        #    chmod a+x build-release.sh
+	#    pwd
+	#    cat $script_path
+        #    cd "$start_dir" || exit 1
+        #else
+        #    echo "⚠️  Kein ausführbares Skript ($script_path) gefunden"
+	#    cat $script_path
+        # fi
+	cd $folder_path
+	chmod a+x build-release.sh
+	./build-release.sh
+	cd ..
     fi
 done
 
 echo ""
-echo "This is version $VERSION" > build_temp/README.txt
-
+cd dist
+for zips in *.zip ; do
+   zip="${zips%.*}"
+   ZIP_NAME="${zip}-${VERSION}.zip"
+   echo "📁  Creating ZIP archive: $ZIP_NAME"
+   mv $zips $ZIP_NAME
+   zip -r "$ZIP_NAME" "version.txt"
+   echo "${zips%.*}"
+done 
 # Create ZIP archive
-ZIP_NAME="example-${VERSION}.zip"
-echo "📁 Creating ZIP archive: $ZIP_NAME"
-zip -r "$DIST_DIR/$ZIP_NAME" build_temp "$DIST_DIR/version.txt"
+
 
 # Clean up temp files
 rm -rf build_temp
