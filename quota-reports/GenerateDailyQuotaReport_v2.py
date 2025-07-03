@@ -100,3 +100,6 @@ def lambda_handler(event, context):
 
         except Exception as e:
             print(f"Error processing filesystem {filesystem['FileSystemId']}: {e}")
+
+
+# lambda_handler("test_event", "test_context")  # Replace with actual event and context in production
