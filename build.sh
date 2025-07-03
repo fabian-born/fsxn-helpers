@@ -16,8 +16,45 @@ mkdir -p "$DIST_DIR"
 echo "$VERSION" > "$DIST_DIR/version.txt"
 
 # Example: Create build content
-echo "🔧 Creating sample files..."
-mkdir -p build_temp
+echo "🔧 Creating files..."
+
+# Aktuelles Verzeichnis merken
+start_dir="$(pwd)"
+
+# Listet alle Ordner im aktuellen Verzeichnis auf
+echo "Gefundene Ordner:"
+
+# Array zum Speichern der Ordnernamen
+folders=()
+
+# Schleife über alle Einträge im aktuellen Verzeichnis
+for dir in */ ; do
+    if [ -d "$dir" ]; then
+        # Entferne den abschließenden Slash
+        folder_name="${dir%/}"
+        echo "$folder_name"
+        folders+=("$folder_name")
+
+        # Pfad zum Ordner
+        folder_path="$start_dir/$folder_name"
+
+        # Pfad zum Skript im Ordner
+        script_path="$folder_path/build-release.sh"
+
+        # Prüfen, ob das Skript existiert und ausführbar ist
+        if [ -x "$script_path" ]; then
+            echo "→ Wechsle in $folder_name und führe run.sh aus"
+            cd "$folder_path" || continue
+            chmod a+x build-release.sh
+            ./build-release.sh
+            cd "$start_dir" || exit 1
+        else
+            echo "⚠️  Kein ausführbares Skript ($script_path) gefunden"
+        fi
+    fi
+done
+
+echo ""
 echo "This is version $VERSION" > build_temp/README.txt
 
 # Create ZIP archive
