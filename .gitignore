@@ -1,2 +1,5 @@
 **/venv
 **/*dailyreport.csv
+**/package
+**/*.zip
+**/deploymentfiles
