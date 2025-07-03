@@ -2,9 +2,9 @@
 
 Here are a list of helpers which can be used for operating FSxN
 
-|     | folder                           | description |
-| --- | -------------------------------- | ----------- |
-| 1   | [quota-reports](quoter-reports/) | -           |
+|     | folder                                    | description |
+| --- | ----------------------------------------- | ----------- |
+| 1   | [quota-reports](blob/main/quota-reports/) | -           |
 
 ### Disclaimer:
 
