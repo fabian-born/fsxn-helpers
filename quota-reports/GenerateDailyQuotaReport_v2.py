@@ -9,8 +9,8 @@ requests.packages.urllib3.disable_warnings()
 
 # Configuration
 SECRET_NAME = "fsxn-read-api"
-REGION_NAME = "eu-west-1"
-S3_BUCKET = "fabianb-bucket"
+REGION_NAME = "<my-region-name>"
+S3_BUCKET = "<my-s3-bucket-name>"  # Replace with your actual S3 bucket name
 S3_FOLDER = "quota-reports"
 
 def lambda_handler(event, context):
