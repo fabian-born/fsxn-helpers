@@ -1,13 +1,43 @@
-name: Release
+name: Build & Release
+
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*'  # z.B. v1.2.3
 
 jobs:
-  release:
+  build-and-release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: 🧾 Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: 🧰 Run Build Script
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
+
+      - name: 📋 Extract Tag Name
+        id: get_tag
+        run: |
+          echo "tag_name=${GITHUB_REF##*/}" >> "$GITHUB_OUTPUT"
+
+      - name: 📝 Generate Release Notes from Git Tag Message
+        id: release_notes
+        run: |
+          # Hol dir die Commit Message des Tags (oder Changelog-Auszug falls vorhanden)
+          tag_message=$(git for-each-ref refs/tags/${{ steps.get_tag.outputs.tag_name }} --format='%(contents)')
+          echo "release_body<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$tag_message" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: 🚀 Create GitHub Release with Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_tag.outputs.tag_name }}
+          name: Release ${{ steps.get_tag.outputs.tag_name }}
+          body: ${{ steps.release_notes.outputs.release_body }}
+          files: dist/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
