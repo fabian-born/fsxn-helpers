@@ -22,8 +22,8 @@ This project provides an AWS Lambda function that generates **daily quota report
 | -------------------------------------------------------------------- | ----------------------------------------------------------------- | ----------- |
 | [GenerateDailyQuotaReport.py](GenerateDailyQuotaReport.py)           | Generate daily report from an EC2 - not working with AWS Lambda   | available   |
 | [GenerateDailyQuotaReport_v2.py](GenerateDailyQuotaReport_v2.py)     | Generate daily report, running as Lambda function                 | available   |
-| [GenerateMonthlyQuotaReport.py](GenerateMonthlyQuotaReport.py)       | Generate monthly report from an EC2 - not working with AWS Lambda | commig soon |
-| [GenerateMonthlyQuotaReport_v2.py](GenerateMonthlyQuotaReport_v2.py) | Generate monthly report, running as Lambda function               | commig soon |
+| [GenerateMonthlyQuotaReport.py](GenerateMonthlyQuotaReport.py)       | Generate monthly report from an EC2 - not working with AWS Lambda | testing |
+| [GenerateMonthlyQuotaReport_v2.py](GenerateMonthlyQuotaReport_v2.py) | Generate monthly report, running as Lambda function               | testing |
 
 ---
 
