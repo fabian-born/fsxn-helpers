@@ -11,7 +11,7 @@ logger = logging.getLogger()
 
 # Constants
 SECRET_NAME = "fsxn-read-api"
-REGION_NAME = "eu-west-1"
+REGION_NAME = "<my-region-name>"
 S3_BUCKET = "<my-s3-bucket-name>"  # This is the bucket where the CSV files will be uploaded
 
 def lambda_handler(event, context):

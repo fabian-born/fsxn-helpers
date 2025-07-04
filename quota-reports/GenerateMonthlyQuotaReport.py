@@ -10,8 +10,8 @@ import json
 
 ### Variables ###
 secret_name = "fsxn-read-api"
-region_name = "eu-west-1"
-s3_bucket = "fabianb-bucket"  # This is the bucket where the CSV files will be uploaded
+region_name = "<my-region-name>"
+s3_bucket = "<my-s3-bucket-name>"  # This is the bucket where the CSV files will be uploaded
 #################
 
 def lambda_handler():
